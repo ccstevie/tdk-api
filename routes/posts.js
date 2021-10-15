@@ -14,9 +14,36 @@ router.post("/", async (req, res) => {
   }
 });
 
+//get a post
+
+router.get("/:id", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    res.status(200).json(post);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+//delete a post
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (post.userId === req.body.userId) {
+      await post.deleteOne();
+      res.status(200).json("the post has been deleted");
+    } else {
+      res.status(403).json("you can delete only your post");
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 //get user's all posts
 
-router.get("/profile/:username", async (req, res) => {
+router.get("/:username", async (req, res) => {
     try {
       const user = await User.findOne({ username: req.params.username });
       const posts = await Post.find({ userId: user._id });
