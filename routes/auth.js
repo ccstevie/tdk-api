@@ -11,10 +11,18 @@ router.post("/register", async (req, res) => {
 
     //create new user
     const newUser = new User({
+      country: req.body.country,
+      school: req.body.school,
+      position: req.body.position,
+      faculty: req.body.faculty,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
       username: req.body.username,
       email: req.body.email,
       password: hashedPass,
     });
+
+    // console.log(newUser);
 
     //save user and respond
     const user = await newUser.save();
@@ -32,7 +40,9 @@ router.post("/login", async (req, res) => {
 
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     !validPassword && res.status(400).json("wrong password");
-
+    
+    // session
+    req.session.user = user;
     res.status(200).json(user);
   } catch (err) {
     res.status(500).json(err);
