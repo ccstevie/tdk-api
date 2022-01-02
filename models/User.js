@@ -6,11 +6,11 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    school: {
+    uniName: {
       type: String,
       required: true,
     },
-    position: {
+    titleName: {
       type: String,
       required: true,
     },
