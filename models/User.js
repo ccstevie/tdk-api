@@ -44,9 +44,21 @@ const UserSchema = new mongoose.Schema(
       required: true,
       min: 6,
     },
-    profilePicture: {
+    profilePic: {
       type: String,
       default: "",
+    },
+    backgroundPic: {
+      type: String,
+      default: "",
+    },
+    followers: {
+      type: Array,
+      default: [],
+    },
+    following: {
+      type: Array,
+      default: [],
     },
   },
   { timestamps: true }
